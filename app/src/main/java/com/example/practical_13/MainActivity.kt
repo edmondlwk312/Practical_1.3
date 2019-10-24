@@ -3,6 +3,7 @@ package com.example.practical_13
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import java.util.*
 
@@ -15,39 +16,33 @@ class MainActivity : AppCompatActivity()
 
         val rollButton: Button = this.findViewById(R.id.roll_button)
         rollButton.setOnClickListener { rollDice() }
-
-        val countButton: Button = findViewById(R.id.countup_button)
-        countButton.setOnClickListener { countUp() }
     }
 
     private fun rollDice()
     {
-        //Toast.makeText(this, "button clicked",
-        //Toast.LENGTH_SHORT).show()
+        lateinit var diceImage : ImageView
 
-        val randomInt = Random().nextInt(6) + 1
-
-        val resultText: TextView = findViewById(R.id.result_text)
-        resultText.text = randomInt.toString()
+        diceImage = findViewById(R.id.dice_image)
+        diceImage.setImageResource(rep())
+        diceImage = findViewById(R.id.dice_image2)
+        diceImage.setImageResource(rep())
+        diceImage = findViewById(R.id.dice_image3)
+        diceImage.setImageResource(rep())
     }
 
-    private fun countUp()
+    private fun rep():Int
     {
-        val resultText: TextView = findViewById(R.id.result_text)
-
-        if (resultText.text == "Hello World!")
+        val randomInt = Random().nextInt(6) + 1
+        val drawableResource = when (randomInt)
         {
-            resultText.text = "1"
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
         }
-        else
-        {
-            var resultInt = resultText.text.toString().toInt()
 
-            if (resultInt < 6)
-            {
-                resultInt++
-                resultText.text = resultInt.toString()
-            }
-        }
+        return drawableResource
     }
 }
